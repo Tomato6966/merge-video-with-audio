@@ -25,11 +25,13 @@ The tool has two operating modes:
 
 ### 2. **Merge Mode** (Replace audio in videos) - Default
    - Scans a directory for video files (MP4, MOV)
-   - Looks for corresponding edited audio files with pattern `{videoname}_edited.{ext}`
+   - Looks for corresponding edited audio files with pattern `{videoname}_audio.{ext}`
    - Replaces the video's audio track with the edited audio
    - Outputs new video as `{videoname}_final.mp4`
    - Keeps original video and audio files intact
    - No video re-encoding (fast & quality-preserving)
+
+(you can rename the functions for the syntax of both the **final output** and the **audio source**)
 
 ## Features
 
@@ -71,7 +73,7 @@ MODE=extract EXTRACT_FORMAT=mp3 bun run index.ts
 # Step 2: Edit the extracted *_audio.mp3 files in your audio editor
 #         (Audacity, Adobe Audition, etc.)
 
-# Step 3: Save/rename edited audio files as *_edited.mp3
+# Step 3: Save/rename edited audio files as *_audio.mp3
 
 # Step 4: Merge edited audio back into videos
 bun run index.ts
@@ -107,7 +109,7 @@ This will create `{videoname}_audio.{format}` files for each video.
 
 1. Extract audio from your videos (using extract mode above)
 2. Edit the audio files in your preferred audio editor
-3. Rename edited files to `{videoname}_edited.{format}` (instead of `_audio`)
+3. Rename edited files to `{videoname}_audio.{format}` (instead of `_audio`)
 4. Run the merge mode:
 
 ```bash
@@ -150,7 +152,7 @@ my-videos/
 my-videos/
 ├── vacation.mp4
 ├── vacation_audio.mp3     (original, can keep or delete)
-└── vacation_edited.mp3    (edited version)
+└── vacation_audio.mp3    (edited version)
 ```
 
 **Step 4 - Run merge mode:**
@@ -162,7 +164,7 @@ DIR=my-videos bun run index.ts
 ```
 my-videos/
 ├── vacation.mp4           (original)
-├── vacation_edited.mp3    (edited audio)
+├── vacation_audio.mp3    (edited audio)
 └── vacation_final.mp4     ✅ New video with replaced audio
 ```
 
@@ -197,24 +199,24 @@ project/
 ```
 project/
 ├── intro.mp4
-├── intro_edited.wav
+├── intro_audio.wav
 ├── main-content.mov
-├── main-content_edited.aac
+├── main-content_audio.aac
 ├── outro.mp4
-└── outro_edited.flac
+└── outro_audio.flac
 ```
 
 **Result:**
 ```
 project/
 ├── intro.mp4
-├── intro_edited.wav
+├── intro_audio.wav
 ├── intro_final.mp4        ✅ Created
 ├── main-content.mov
-├── main-content_edited.aac
+├── main-content_audio.aac
 ├── main-content_final.mp4 ✅ Created
 ├── outro.mp4
-├── outro_edited.flac
+├── outro_audio.flac
 └── outro_final.mp4        ✅ Created
 ```
 
@@ -223,17 +225,17 @@ project/
 ```
 videos/
 ├── interview.mp4
-├── interview_edited.opus
+├── interview_audio.opus
 ├── tutorial.mp4           (no edited audio - will be skipped)
 ├── vlog.mov
-└── vlog_edited.m4a
+└── vlog_audio.m4a
 ```
 
 **Console Output:**
 ```
-Replacing audio in: interview.mp4 with interview_edited.opus -> interview_final.mp4
+Replacing audio in: interview.mp4 with interview_audio.opus -> interview_final.mp4
 No edited audio file found for: tutorial.mp4
-Replacing audio in: vlog.mov with vlog_edited.m4a -> vlog_final.mp4
+Replacing audio in: vlog.mov with vlog_audio.m4a -> vlog_final.mp4
 ```
 
 ## Supported Audio Formats

@@ -15,6 +15,8 @@ const EXTRACT_FORMAT = process.env.EXTRACT_FORMAT || 'mp3';
 // Change this function if you want to do "different naming for the final, edited files."
 const outFileNameGenerator = (base: string) => `${base}_final.mp4`;
 
+const audioFileSyntax = (base: string, format: string) => `${base}_audio.${format}`;
+
 // Supported audio formats
 const SUPPORTED_AUDIO_FORMATS = ['mp3', 'wav', 'aac', 'm4a', 'flac', 'ogg', 'wma', 'opus'];
 
@@ -53,7 +55,7 @@ const extractAudioFromVideo = (videoPath: string, outputPath: string, format: st
 // Find the audio file for the given base name with any supported format
 const findAudioFile = (base: string): string | null => {
   for (const ext of SUPPORTED_AUDIO_FORMATS) {
-    const audioFile = `${base}_edited.${ext}`;
+    const audioFile = audioFileSyntax(base, ext);
     const audioPath = path.join(DIR, audioFile);
     if (fs.existsSync(audioPath)) {
       return audioFile;
